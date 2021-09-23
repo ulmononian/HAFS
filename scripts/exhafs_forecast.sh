@@ -337,6 +337,19 @@ ${NCP} $FIXam/global_shdmax.0.144x0.144.grb .
 ${NCP} $FIXam/global_slope.1x1.grb .
 ${NCP} $FIXam/global_mxsnoalb.uariz.t1534.3072.1536.rg.grb .
 
+## For Thompson microphysics
+if_thomp=$(grep mp_thompson ${HOMEhafs}/sorc/hafs_forecast.fd/FV3/ccpp/suites/suite_HAFS_v0_thompson_tedmf.xml | wc -l)
+if [[ ${if_thomp}  -eq 3 ]] ; then
+  ${NCP} ${PARMforecast}/field_table .
+  ${NCP} ${PARMforecast}/input.nml.tmp .
+  ${NCP} ${PARMforecast}/qr_acr_qs.dat .
+  ${NCP} ${PARMforecast}/qr_acr_qg.dat .
+  ${NCP} ${PARMforecast}/freezeH2O.dat .
+  ${NCP} ${PARMforecast}/CCN_ACTIVATE.BIN .
+fi
+##
+
+
 for file in $(ls ${FIXam}/fix_co2_proj/global_co2historicaldata*); do
   ${NCP} $file $(echo $(basename $file) |sed -e "s/global_//g")
 done
@@ -385,6 +398,17 @@ ${NCP} ${PARMforecast}/input.nml.tmp .
 ${NCP} ${PARMforecast}/input_nest02.nml.tmp .
 ${NCP} ${PARMforecast}/model_configure.tmp .
 ${NCP} ${PARMforecast}/nems.configure.atmonly ./nems.configure
+
+## For Thompson
+if [[ ${ccpp_suite_nest} == *"thompson"* ]] ; then
+  ${NCP} ${PARMforecast}/data_table .
+  ${NCP} ${PARMforecast}/input.nml.tmp .
+  ${NCP} ${PARMforecast}/qr_acr_qs.dat .
+  ${NCP} ${PARMforecast}/qr_acr_qg.dat .
+  ${NCP} ${PARMforecast}/freezeH2O.dat .
+  ${NCP} ${PARMforecast}/CCN_ACTIVATE.BIN .
+fi
+##
 
 glob_pes=$(( ${glob_layoutx} * ${glob_layouty} * 6 ))
 nest_pes=$(( ${layoutx} * ${layouty} ))
@@ -506,6 +530,19 @@ ${NCP} ${PARMforecast}/diag_table.tmp .
 ${NCP} ${PARMforecast}/field_table .
 ${NCP} ${PARMforecast}/input.nml.tmp .
 ${NCP} ${PARMforecast}/model_configure.tmp .
+
+## For Thompson
+if_thomp=$(grep mp_thompson ${HOMEhafs}/sorc/hafs_forecast.fd/FV3/ccpp/suites/suite_HAFS_v0_thompson_tedmf_nonsst.xml | wc -l)
+if [[ ${if_thomp}  -eq 3 ]] ; then
+  ${NCP} ${PARMforecast}/field_table .
+  ${NCP} ${PARMforecast}/input.nml.tmp .
+  ${NCP} ${PARMforecast}/qr_acr_qs.dat .
+  ${NCP} ${PARMforecast}/qr_acr_qg.dat .
+  ${NCP} ${PARMforecast}/freezeH2O.dat .
+  ${NCP} ${PARMforecast}/CCN_ACTIVATE.BIN .
+fi
+##
+
 
 if [ ${run_ocean} = yes ]; then
   if [[ ${cpl_ocean} -eq 3 ]]; then
