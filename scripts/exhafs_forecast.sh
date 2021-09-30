@@ -338,7 +338,7 @@ ${NCP} $FIXam/global_slope.1x1.grb .
 ${NCP} $FIXam/global_mxsnoalb.uariz.t1534.3072.1536.rg.grb .
 
 ## For Thompson microphysics
-if_thomp=$(grep mp_thompson ${HOMEhafs}/sorc/hafs_forecast.fd/FV3/ccpp/suites/suite_HAFS_v0_thompson_tedmf.xml | wc -l)
+if_thomp=$(grep mp_thompson ${HOMEhafs}/sorc/hafs_forecast.fd/FV3/ccpp/suites/suite_HAFS_v0_nocp_thompson.xml | wc -l)
 if [[ ${if_thomp}  -eq 3 ]] ; then
   ${NCP} ${PARMforecast}/field_table .
   ${NCP} ${PARMforecast}/input.nml.tmp .
@@ -532,7 +532,7 @@ ${NCP} ${PARMforecast}/input.nml.tmp .
 ${NCP} ${PARMforecast}/model_configure.tmp .
 
 ## For Thompson
-if_thomp=$(grep mp_thompson ${HOMEhafs}/sorc/hafs_forecast.fd/FV3/ccpp/suites/suite_HAFS_v0_thompson_tedmf_nonsst.xml | wc -l)
+if_thomp=$(grep mp_thompson ${HOMEhafs}/sorc/hafs_forecast.fd/FV3/ccpp/suites/suite_HAFS_v0_nocp_thompson.xml | wc -l)
 if [[ ${if_thomp}  -eq 3 ]] ; then
   ${NCP} ${PARMforecast}/field_table .
   ${NCP} ${PARMforecast}/input.nml.tmp .
